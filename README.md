@@ -27,6 +27,7 @@ retrospectively from the git history and carry no live snapshot. Ledger-derived 
 
 | Day | Summary |
 |---|---|
+| [2026-10-02](reports/2026/2026-10-02.md) · [PDF](reports/2026/2026-10-02.pdf) | 1 commit, 1 finding fixed, 22,815/22,816 ledgers matched |
 | [2026-10-01](reports/2026/2026-10-01.md) · [PDF](reports/2026/2026-10-01.pdf) | 1 commit, 524/524 ledgers matched |
 | [2026-09-30](reports/2026/2026-09-30.md) · [PDF](reports/2026/2026-09-30.pdf) | 2 commits, 2 findings fixed, 721/721 ledgers matched |
 | [2026-09-29](reports/2026/2026-09-29.md) · [PDF](reports/2026/2026-09-29.pdf) | 3 commits, 2 findings fixed, 12,404/12,404 ledgers matched |
