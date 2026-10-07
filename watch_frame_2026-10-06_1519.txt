@@ -1,0 +1,49 @@
+[1;36m═══ XRPL Validator — Live Status ═══[0m
+[1;30;42m  ★ STAGE 3: ACTIVE — our engine WRITES the ledger database ★[0m
+[90m   state.rocks bytes come from our own tx engine, not copied from rippled[0m
+[1;32m  ✓ ALL GOOD — signing, 68,012 clean ledgers in a row, engine-written state (Stage 3)[0m
+[90m   who owns what: [2;32m[OURS — Rust][0m[90m = our Rust code   [0m[1;94m[RIPPLED][0m[90m = rippled's code (their node, or their C++ core linked into ours)[0m[0m
+
+[1mLedger:[0m         #107478160  [1;32m✓ VERIFIED — signing validations[0m
+[1mState hash:[0m    [32m68,012[0m matched | [32m0[0m missed | 68,012 in a row  [2;32m[OURS — Rust][0m
+[90m   after every ledger: does our whole database hash to the same root as mainnet? (our own Rust SHAMap computes this)[0m
+
+[1;36m── Upstream xrpld (http://10.0.0.39:5005) ──[0m  [1;94m[RIPPLED — their software, our data feed][0m
+[90m   the rippled node we pull ledgers from — our data source, NOT our engine[0m
+  build [36m3.4.1[0m  |  state=[1;32mfull[0m  |  peers=41
+  complete_ledgers: [32m107214647-107478160[0m
+  [1mws-sync lag:[0m   [32m0 ledgers[0m[32m[0m   (wrote #107478160, upstream #107478160)
+
+[1;35m── Transaction Engine (libxrpl via FFI) ──[0m  [1;94m[RIPPLED'S C++ CORE — inside our process][0m
+[90m   rippled's own apply code, statically linked, driven by our Rust — the part the native Rust engine replaces next[0m
+  libxrpl [36m3.4.0[0m (linked, not apt)  |  68012 ledgers applied[1;33m  ⚠ SKEW: network/upstream is 3.4.1[0m
+  [1mMAINNET AGREEMENT:[0m [1;32m100.00%[0m   (6,715,568/6,715,568  diverged=0)
+    tesSUCCESS: [32m4,070,411[0m (60.6%)  +  tec* claimed: [36m2,645,157[0m  |  last: [33mtecPATH_DRY[0m 0ms
+[90m   claimed = the tx failed on mainnet and we failed it the exact same way (fee still burns)[0m
+    types: OfferCreate:[36m3062474[0m | Payment:[36m2224198[0m | CheckCash:[36m571269[0m | OfferCancel:[36m237368[0m | TicketCreate:[36m171050[0m | AccountSet:[36m146264[0m
+    TERs:  tesSUCCESS:[36m4070411[0m | tecUNFUNDED_OFFER:[36m1023937[0m | tecPATH_PARTIAL:[36m669101[0m | tecPATH_DRY:[36m471137[0m | tecKILLED:[36m360875[0m
+    [36mSTATE.ROCKS MISSES: 14,053,513 / 195,680,903 (7.18%)[0m [90m— keys our DB lacked, fetched over RPC instead[0m
+
+[1;32m── Native Engine Shadow (Stage 4) ──[0m  [2;32m[OURS — Rust][0m
+[90m   our own Rust tx engine applies every ledger beside the C++ core — do the overlays agree byte-for-byte?[0m
+  [1mOVERLAY AGREEMENT:[0m [1;32m100.00%[0m   (68,006/68,006 ledgers  diverged=0)
+    txs applied: [36m6,714,697[0m  ter-match: [32m6,714,697[0m  ter-miss: [32m0[0m  |  last apply: 29ms
+[90m   mirror: 20,039,741 objects, hydrated in 240s (0 undecodable)[0m
+
+[1;35m── Consensus Monitor ──[0m  [2;32m[OURS — Rust][0m
+[90m   listening to the trusted validators' votes — do they agree, and on what?[0m
+[1mUNL:[0m           35 trusted validators | 32 currently tracked
+[1mProposals:[0m     4,442,709 received total
+[1mAgreement:[0m     [32m28/35[0m on 6918C06DA822E552...  seq=1
+               [32m[████████████████░░░░][0m [32m80%[0m
+[1mState:[0m         phase=establish(round=1)  mempool=54  candidate=54  rounds=0
+
+[1;34m── State Hash (detail) ──[0m  [2;32m[OURS — Rust][0m
+[90m   the signing gate: we only sign a ledger our own database independently hashed to[0m
+  [32m68,012[0m matches | [32m0[0m mismatches | 68012 consecutive
+  [33mVALIDATIONS SKIPPED: 8[0m  (not_ready: 8, zero_hash: 0)
+[1;35m── Shadow Hash (engine-computed state root) ──[0m  [95m[C++ output, checked by our Rust][0m
+[90m   the engine's independently computed state root vs the network's — the proof behind Stage 3[0m
+  [32m68012/68012[0m matched (100.0%)  |  [32m0[0m mismatched
+  ours:    [36m56A35F9C1FB31426EB87E1D5[0m...
+  network: [36m56A35F9C1FB31426EB87E1D5[0m...
