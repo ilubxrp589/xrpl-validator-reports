@@ -8,7 +8,7 @@
 [1mState hash:[0m    [32m67,684[0m matched | [32m0[0m missed | 67,684 in a row  [2;32m[OURS — Rust][0m
 [90m   after every ledger: does our whole database hash to the same root as mainnet? (our own Rust SHAMap computes this)[0m
 
-[1;36m── Upstream xrpld (http://10.0.0.39:5005) ──[0m  [1;94m[RIPPLED — their software, our data feed][0m
+[1;36m── Upstream xrpld (upstream) ──[0m  [1;94m[RIPPLED — their software, our data feed][0m
 [90m   the rippled node we pull ledgers from — our data source, NOT our engine[0m
   build [36m3.4.1[0m  |  state=[1;32mfull[0m  |  peers=41
   complete_ledgers: [32m107214647-107477832[0m
