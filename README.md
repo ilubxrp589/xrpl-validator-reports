@@ -1,32 +1,50 @@
 # XRPL Validator — Daily Engineering Reports
 
-Daily progress of [xrpl-validator](https://github.com/ilubxrp589/xrpl-validator): a Rust XRP Ledger validator and
-a native Rust transaction engine that is checked byte-for-byte against rippled on live mainnet traffic.
+Daily operations and engineering record of [xrpl-validator](https://github.com/ilubxrp589/xrpl-validator): a Rust XRP
+Ledger validator and a native Rust transaction engine that is checked byte-for-byte against rippled on live mainnet
+traffic.
 
-Each report is compiled automatically just after midnight (US Eastern) and covers XRPL work only: the day's commits
-to xrpl-validator and the XRPL Rust SDK, a live snapshot of the native-engine shadow and of the reference rippled
-node, the amendment watch read from the XRP Ledger, and XRPL research. Every report is available as Markdown and PDF.
+Each report is compiled automatically just after midnight (US Eastern) for the previous US Eastern calendar day and
+covers XRPL work only: the validator's service levels, the native engine's conformance, every receipt with its
+disposition, incidents, deployments and merged changes, the independence program, network events, the amendment watch
+read from the XRP Ledger, and XRPL research. Tables use UTC. Every report is available as Markdown and PDF.
+
+**Format v3 from 2026-10-20.** Reports from 2026-10-20 on add service levels, a receipt register with dispositions,
+incidents, a deployment change log, network events and the independence program, and count every receipt of the day
+across all steps and restarts. Earlier reports (format v2) counted only the native-engine shadow's receipts in the
+soak running when the report was generated, and listed commits by commit date only.
 
 ## How to read these reports
 
 | Term | Meaning |
 |---|---|
+| Coverage | Validations the validator issued, as a share of the ledgers the network closed in the period. |
+| Agreement | Each validation's ledger hash compared with the network's validated hash for that ledger. |
+| Reference node | The rippled node the validator compares its own work against. |
+| Ledger feed | The validator's stream of newly closed ledgers, which its engine applies. |
 | Native engine | The Rust implementation of XRPL transaction application (`crates/xrpl-ledger`). |
-| Live shadow | The native engine applies every mainnet ledger alongside libxrpl, rippled's own engine, and each result is compared byte-for-byte. |
-| Soak | A timed live run on a fixed build. A clean soak records no divergences. |
-| Receipt | A recorded divergence between the native engine and libxrpl. |
+| Steps 1–5 | The independence checks: (1) the native engine against libxrpl, rippled's own engine; (2) our transaction records; (3) our transaction order; (4) ledger data and validations from peers; (5) our own ledger hash. |
+| Receipt | A recorded difference between the validator's own work and the network's, or trusted validations that reached the validator short of quorum. |
+| Receipt register | The day's receipts, each with an ID, time, ledger, step, description and disposition. |
+| Disposition | What became of a receipt: fixed (finding, commit, deployment), explained (not a defect, with the reason) or open. |
+| Incident | Ledgers the validator left unsigned outside planned maintenance, with impact, cause and action. |
+| Deployment / cycle | A build that passed the test suites and mainnet replay windows, deployed, health-checked and soaked. |
+| Soak | A 24-hour live run on a fixed build. A clean soak records no engine receipts. |
 | Finding (F-number) | A divergence from rippled's behaviour that was diagnosed and fixed; most are pinned as byte-exact regression vectors. |
+| Independence program | The goal of 30 consecutive days on which every validation is of a ledger the validator built entirely itself. |
 | Campaign | Crafted transactions on testnet or devnet that exercise paths mainnet rarely reaches; their ledger changes become test vectors. |
 | Amendment watch | Amendment majorities, activations and voting events, read directly from the XRP Ledger. |
 
-**Coverage.** A report exists for each day with XRPL commits. Reports dated before 2026-09-23 were compiled
-retrospectively from the git history and carry no live snapshot. Ledger-derived amendment data begins on
-2026-09-05, the start of the reference node's retained ledger history.
+**Coverage.** A report exists for each day with XRPL commits, and for every day from 2026-09-23. Reports dated before
+2026-09-23 were compiled retrospectively from the git history and carry no live snapshot. Ledger-derived amendment
+data begins on 2026-09-05, the start of the reference node's retained ledger history. Corrections to a published report
+appear in the next report's "Corrections to earlier reports" section.
 
 ## Reports
 
 | Day | Summary |
 |---|---|
+| [2026-10-20](reports/2026/2026-10-20.md) · [PDF](reports/2026/2026-10-20.pdf) | Degraded · coverage 99.152% · 2 engine receipts · 3 deployments · 2 findings fixed |
 | [2026-10-19](reports/2026/2026-10-19.md) · [PDF](reports/2026/2026-10-19.pdf) | 0 commits, 27,640/27,640 ledgers matched |
 | [2026-10-18](reports/2026/2026-10-18.md) · [PDF](reports/2026/2026-10-18.pdf) | 2 commits, 5,581/5,581 ledgers matched |
 | [2026-10-17](reports/2026/2026-10-17.md) · [PDF](reports/2026/2026-10-17.pdf) | 0 commits, 30,238/30,238 ledgers matched |
