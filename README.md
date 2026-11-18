@@ -46,6 +46,7 @@ appear in the next report's "Corrections to earlier reports" section.
 
 | Day | Summary |
 |---|---|
+| [2026-11-17](reports/2026/2026-11-17.md) · [PDF](reports/2026/2026-11-17.pdf) | Normal · coverage 100.000% · 0 engine receipts · 0 deployments |
 | [2026-11-16](reports/2026/2026-11-16.md) · [PDF](reports/2026/2026-11-16.pdf) | Normal · coverage 100.000% · 0 engine receipts · 0 deployments |
 | [2026-11-15](reports/2026/2026-11-15.md) · [PDF](reports/2026/2026-11-15.pdf) | Normal · coverage 100.000% · 0 engine receipts · 0 deployments |
 | [2026-11-14](reports/2026/2026-11-14.md) · [PDF](reports/2026/2026-11-14.pdf) | Normal · coverage 99.742% · 3 engine receipts · 1 deployment |
